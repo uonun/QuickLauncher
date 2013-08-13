@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="udnz.com.VSExtensions.QuickLauncher.QuickLauncherControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="360" d:DesignWidth="800" PreviewKeyDown="Control_PreviewKeyDown">
+    <Grid>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="tbKeyLabel" Text="File Name" VerticalAlignment="Top" />
+        <TextBox Height="23" Margin="76,9,0,0" Name="tbKey" VerticalAlignment="Top" TextChanged="tbKey_TextChanged" PreviewKeyDown="tbKey_PreviewKeyDown" HorizontalAlignment="Left" Width="152" />
+        <ListView Margin="12,41,12,12" Name="lvList" ItemsSource="{Binding}" PreviewKeyDown="lvList_PreviewKeyDown" MouseDoubleClick="lvList_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Full Path" DisplayMemberBinding="{Binding FullName}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="0 item(s) found." Margin="233,7,0,0" Name="lbInfo" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <CheckBox x:Name="cbAutoClose" Content="" HorizontalAlignment="Right" Margin="0,12,10,0" ClickMode="Press" ToolTip="Close after file opening" Height="16" VerticalAlignment="Top" Checked="cbAutoClose_Checked" Unchecked="cbAutoClose_Checked"/>
+    </Grid>
+</UserControl>

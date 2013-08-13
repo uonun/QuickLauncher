@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "udnz.com.VSExtensions.QuickLauncher", "udnz.com.VSExtensions.QuickLauncher\udnz.com.VSExtensions.QuickLauncher.csproj", "{3231A7E7-E862-47FF-8A6C-E3B9AECC695A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "udnz.com.VSExtensions", "udnz.com.VSExtensions\udnz.com.VSExtensions.csproj", "{9698DB4E-1864-4EBE-B492-8850815BEA2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3231A7E7-E862-47FF-8A6C-E3B9AECC695A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3231A7E7-E862-47FF-8A6C-E3B9AECC695A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3231A7E7-E862-47FF-8A6C-E3B9AECC695A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3231A7E7-E862-47FF-8A6C-E3B9AECC695A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9698DB4E-1864-4EBE-B492-8850815BEA2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9698DB4E-1864-4EBE-B492-8850815BEA2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9698DB4E-1864-4EBE-B492-8850815BEA2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9698DB4E-1864-4EBE-B492-8850815BEA2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
