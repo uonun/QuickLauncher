@@ -1,28 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
+using System.Security.Permissions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.VisualStudio.Shell.Interop;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
-using System.Security.Permissions;
-using EnvDTE;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Collections;
 using System.Windows.Media.Animation;
-using System.Text.RegularExpressions;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Settings;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.Settings;
+using Microsoft.VisualStudio;
 
 namespace udnz.com.VSExtensions.QuickLauncher
 {
@@ -82,6 +72,20 @@ namespace udnz.com.VSExtensions.QuickLauncher
 
         private void SeekAll(ProjectItem i, string key)
         {
+            if (!string.IsNullOrEmpty(i.Name))
+            {
+                bool isOk = false;
+                isOk = i.Kind == VSConstants.ItemTypeGuid.PhysicalFile_string && i.Name.ToLower().Contains(key);
+                if (isOk)
+                {
+                    for (short n = 1;n <= i.FileCount;n++)
+                    {
+                        Debug.WriteLine(string.Format("Name={0},Kind={1}", i.Name, i.Kind));
+                        AddItem(new Tuple<ProjectItem, string, string>(i, i.Name, i.FileNames[n]));
+                    }
+                }
+            }
+
             if (i.ProjectItems != null && i.ProjectItems.Count > 0)
             {
                 foreach (ProjectItem item in i.ProjectItems)
@@ -89,21 +93,11 @@ namespace udnz.com.VSExtensions.QuickLauncher
                     SeekAll(item, key);
                 }
             }
-            else
-            {
-                if (!string.IsNullOrEmpty(i.Name))
-                {
-                    bool isOk = false;
-                    isOk = i.Name.ToLower().Contains(key);
-                    if (i.Name.ToLower().Contains(key))
-                    {
-                        for (short n = 1;n <= i.FileCount;n++)
-                        {
-                            this.lvList.Items.Add(new ViewItem() { Item = i, Name = i.Name, FullName = i.FileNames[n] });
-                        }
-                    }
-                }
-            }
+        }
+
+        private void AddItem(Tuple<ProjectItem, string, string> t)
+        {
+            this.lvList.Items.Add(new ViewItem() { Item = t.Item1, Name = t.Item2, FullName = t.Item3 });
         }
 
         private void OpenFile()
@@ -192,12 +186,18 @@ namespace udnz.com.VSExtensions.QuickLauncher
                             {
                                 foreach (Project p in IDE.Solution.Projects)
                                 {
+                                    Debug.WriteLine("Project p = " + p.Name);
+
                                     if (p.ProjectItems != null && p.ProjectItems.Count > 0)
                                     {
                                         foreach (ProjectItem item in p.ProjectItems)
                                         {
                                             SeekAll(item, key);
                                         }
+                                    }
+                                    else
+                                    {
+                                        Debug.WriteLine("Project p.ProjectItems = null: " + p.Name);
                                     }
                                 }
                             }
@@ -221,7 +221,7 @@ namespace udnz.com.VSExtensions.QuickLauncher
         {
             if (!string.IsNullOrEmpty(tbKey.Text))
             {
-                if (e.Key == Key.Down || e.Key == Key.Tab || e.Key == Key.Enter || e.Key == Key.Return)
+                if (e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.Tab || e.Key == Key.Enter || e.Key == Key.Return)
                 {
                     this.lvList.Focus();
                     if (this.lvList.HasItems)
